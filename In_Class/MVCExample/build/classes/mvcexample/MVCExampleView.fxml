@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvcexample.MVCExampleViewController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <MenuButton mnemonicParsing="false" text="MenuButton">
+              <items>
+                  <MenuItem fx:id="addPerson" mnemonicParsing="false" onAction="#clickAddPerson" text="Add Person" />
+                <MenuItem fx:id="getEveryone" mnemonicParsing="false" onAction="#clickGetEveryone" text="Get Everyone" />
+                <MenuItem fx:id="deleteEveryone" mnemonicParsing="false" onAction="#clickDeleteEveryone" text="Delete Everyone" />
+              </items>
+            </MenuButton>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
