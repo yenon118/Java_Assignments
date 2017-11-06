@@ -24,6 +24,8 @@ public class Ycth8SuperVisual implements Visualizer{
     
     private Line[] lines1;
     private Line[] lines2;
+    private Line[] lines3;
+    private Line[] lines4;
     
     private int numberOfBands;
     private AnchorPane visualizerPane;
@@ -31,7 +33,7 @@ public class Ycth8SuperVisual implements Visualizer{
     private double visualizerPaneWidth;
     
     private double bandWidth;
-    private final double deltaWidth = 5;
+    private final double deltaWidth = 10;
     private double shift;
     
     private double displayAreaHeight;
@@ -46,6 +48,8 @@ public class Ycth8SuperVisual implements Visualizer{
         
         lines1 = new Line[numBands];
         lines2 = new Line[numBands];
+        lines3 = new Line[numBands];
+        lines4 = new Line[numBands];
         
         visualizerOriginalStyle = vizPane.getStyle();
         
@@ -88,20 +92,51 @@ public class Ycth8SuperVisual implements Visualizer{
             line2.setStroke(Color.hsb(hue, 1.0, 1.0, 1.0));
             vizPane.getChildren().add(line2);
             lines2[i] = line2;
+            
+            Line line3 = new Line();
+            line3.setStartX(shift); 
+            line3.setStartY(bandWidth*i + shift);         
+            line3.setEndX(shift); 
+            line3.setEndY(bandWidth*i + shift);
+            line3.setSmooth(true);
+            line3.setStrokeWidth(bandWidth/2);
+            line3.setStroke(Color.hsb(hue, 1.0, 1.0, 1.0));
+            vizPane.getChildren().add(line3);
+            lines3[i] = line3;
+            
+            Line line4 = new Line();
+            line4.setStartX(displayAreaWidth - shift); 
+            line4.setStartY(bandWidth*i + shift);         
+            line4.setEndX(displayAreaWidth - shift); 
+            line4.setEndY(bandWidth*i + shift);
+            line4.setSmooth(true);
+            line4.setStrokeWidth(bandWidth/2);
+            line4.setStroke(Color.hsb(hue, 1.0, 1.0, 1.0));
+            vizPane.getChildren().add(line4);
+            lines4[i] = line4;
         }
 
     }
 
     @Override
     public void end() {
-        if (lines1 != null) {
+        if (lines1 != null && lines2 != null && lines3 != null && lines4 != null) {
             for (Line line1 : lines1) {
                 visualizerPane.getChildren().remove(line1);
             }
             for (Line line2 : lines2) {
                 visualizerPane.getChildren().remove(line2);
             }
+            for (Line line3 : lines3) {
+                visualizerPane.getChildren().remove(line3);
+            }
+            for (Line line4 : lines4) {
+                visualizerPane.getChildren().remove(line4);
+            }
             lines1 = null;
+            lines2 = null;
+            lines3 = null;
+            lines4 = null;
             visualizerPane.setClip(null);
             visualizerPane.setStyle(visualizerOriginalStyle);
         } 
@@ -117,6 +152,15 @@ public class Ycth8SuperVisual implements Visualizer{
         if (lines1 == null) {
             return;
         }
+        else if(lines2 == null){
+            return;
+        }
+        else if(lines3 == null){
+            return;
+        }
+        else if(lines4 == null){
+            return;
+        }
         else{
 
             for (int i = 0; i < numberOfBands; i++) {
@@ -126,7 +170,16 @@ public class Ycth8SuperVisual implements Visualizer{
                 
                 lines2[i].setStartX(displayAreaWidthCenter - shift - 3*(60-Math.abs(magnitudes[i]))); 
                 lines2[i].setEndX(displayAreaWidthCenter - shift - 3*(60-Math.abs(magnitudes[i]))); 
+                
+                lines3[numberOfBands-1-i].setStartX(shift- 1.5*(60-Math.abs(magnitudes[i]))); 
+                lines3[numberOfBands-1-i].setEndX(shift + 1.5*(60-Math.abs(magnitudes[i]))); 
+                lines3[numberOfBands-1-i].setTranslateX(1.5*(60-Math.abs(magnitudes[i])));
+                
+                lines4[numberOfBands-1-i].setStartX(displayAreaWidth - shift - 3*(60-Math.abs(magnitudes[i]))); 
+                lines4[numberOfBands-1-i].setEndX(displayAreaWidth - shift - 3*(60-Math.abs(magnitudes[i]))); 
             }
+            
+            visualizerPane.setStyle("-fx-background-color: black" );
             
         }
     }
