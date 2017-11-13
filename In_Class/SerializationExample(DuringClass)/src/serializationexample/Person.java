@@ -16,6 +16,8 @@ public class Person implements java.io.Serializable {
     private Integer age;
     private String gender;
     
+    private transient int SSN;
+    
     public Person(){
          
     }
@@ -26,7 +28,15 @@ public class Person implements java.io.Serializable {
         this.age = age; 
         this.gender = gender; 
     }
-    
+
+    public int getSSN() {
+        return SSN;
+    }
+
+    public void setSSN(int SSN) {
+        this.SSN = SSN;
+    }
+            
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
